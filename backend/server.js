@@ -18,11 +18,11 @@ db.sequelize.sync().then(() => {
 });
 
 //login-logout-register
-server.post("/api/register", account.register);
+//server.post("/api/register", account.register);
 //
-server.post("/api/login", require("./controllers/user/index.js"));
+//server.post("/api/login", require("./controllers/user/index.js"));
 //
-server.put("/api/changepass/:id", auth, account.change);
+//server.put("/api/changepass/:id", auth, account.change);
 
 server.use("/api/", require("./controllers/auth/index.js"));
 
