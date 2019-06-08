@@ -17,17 +17,6 @@ db.sequelize.sync().then(() => {
     console.log("Successfully connected to db!");
 });
 
-//login-logout-register
-// server.post("/api/register", [
-//     check('email').isEmail(),
-//     check("password", "Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long")
-//         .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
-// ], account.register);
-//
-// server.post("/api/login", requre("./controllers/user/index.js"));
-//
-// server.put("/api/changepass/:id", auth, account.change);
-
 server.use("/api/", require("./controllers/auth/index.js"));
 
 server.use("/api/user", require("./controllers/user/index.js"));

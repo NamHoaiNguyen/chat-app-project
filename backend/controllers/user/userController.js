@@ -29,10 +29,7 @@ module.exports = {
 
            db.User.update(
              {
-               username : req.body.username,
-               facebookLink: req.body.facebookLink,
                phoneNumber: req.body.phoneNumber,
-               city: req.body.city,
                gender : req.body.gender,
                age : req.body.age,
              },
@@ -97,9 +94,4 @@ module.exports = {
     });
   },
 
-  test : (req ,res)=>{
-    res.status(200).json({
-      message : req.params.id
-  });
-}
 };

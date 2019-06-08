@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
       	type: Sequelize.STRING
       },
-      
+
     }, {schema: 'chatapp'})
   },
   down: (queryInterface, Sequelize) => {
