@@ -9,6 +9,20 @@ const generateHash = (password) => {
 };
 
 module.exports = {
+  info: (req, res) => {
+    db.User.findByPk(req.params.id).then(user => {
+      if (user) {
+        res.json({
+          ...user.get({ plain: true }),
+        });
+      } else {
+        res.json({ error: "user not found" });
+      }
+    });
+  },
+
+
+
   update: (req,res) =>{
     db.User.findByPk(req.params.id).then(updateUser =>{
       if(updateUser){

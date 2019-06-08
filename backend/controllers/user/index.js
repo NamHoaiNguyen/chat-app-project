@@ -5,6 +5,8 @@ const controller = require("./userController.js");
 
 const router = express.Router();
 
+router.get("/:id" ,authMiddleware, controller.info);
+
 router.put("/update/:id", authMiddleware , controller.update);
 
 router.put("/changepass/:id", authMiddleware , controller.change);
