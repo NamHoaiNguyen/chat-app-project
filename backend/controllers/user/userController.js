@@ -59,6 +59,7 @@ module.exports = {
   },
 
   change : (req, res) =>{
+    console.log('response url: ', req.path);
     db.User.findByPk(req.params.id).then(change =>{
       if(change){
          bcrypt.compare(req.body.password, change.password).then(result =>{
