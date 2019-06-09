@@ -27,7 +27,6 @@ module.exports = {
 
            db.User.update(
              {
-               phoneNumber: req.body.phoneNumber,
                gender : req.body.gender,
                age : req.body.age,
                city : req.body.city

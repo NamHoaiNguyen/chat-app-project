@@ -34,7 +34,10 @@ module.exports = {
       },
       gender: {
         type: Sequelize.ENUM("F", "M")
-      }
+      },
+      phoneNumber: {
+        type: Sequelize.STRING
+      },
     }, {schema: 'chatapp'})
   },
   down: (queryInterface, Sequelize) => {
