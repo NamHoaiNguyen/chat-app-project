@@ -93,36 +93,44 @@ module.exports = {
   },
 
   addContact : (req, res) =>{
-    db.User.findByPk(req.params.id).then(contact => {
-      if(contact){
-        db.ListContact.findOne({where : {
-          userId : req.userData.userId,
-          friendId : req.params.id
-        } }).then(added => {
-          if(added){
-            res.json({message : "You have added this person."});
-          }
-          else{
-            db.ListContact.create({
-              userId : req.userData.userId,
-              friendId : req.params.id
-            });
-
-            db.ListContact.create({
+    db.User.findByPk(req.params.id).then(user=> {
+      if(user){
+        db.User.findOne({
+          where : {email : req.body.email}
+        }).then(check =>{
+          if(check){
+            db.ListContact.findOne({where : {
               userId : req.params.id,
-              friendId : req.userData.userId
+              friendId : check.id
+            }  }).then(added =>{
+              if(added){
+                res.json({message : "You added this person."});
+              }else{
+                db.ListContact.create({
+                  userId : req.params.id,
+                  friendId : check.id
+                });
+
+                db.ListContact.create({
+                  userId : check.id,
+                  friendId : req.params.id
+                });
+                res.status(200).json({
+                  message : "Added this person as friend."
+                });
+              }
             });
-            res.status(200).json({
-              message : "Added!!!"
+          }else{
+            res.status(422).json({
+              message : "This email doesn't have account!!!"
             });
           }
         });
+      }else{
+        res.status(422).json({
+          message : "Auth failed"
+        });
       }
-    else{
-      res.status(422).json({
-        message : "Auth failed"
-      });
-    }
     });
   },
 

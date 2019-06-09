@@ -9,12 +9,12 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       userId: {
-        type: DataTypes.UUID,
+        type: Sequelize.UUID,
         allowNull: false,
 
       },
       friendId: {
-        type: DataTypes.UUID,
+        type: Sequelize.UUID,
         allowNull: false,
 
       },
