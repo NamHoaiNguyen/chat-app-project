@@ -22,7 +22,7 @@ module.exports = {
       } else {
         db.User.findOne({
           where: {
-            [Op.or]: [{ username: req.body.username }, { email: req.body.username }]
+            [Op.or]: [{ username: req.body.email }, { email: req.body.email }]
           }
         }).then(user => {
           if (user == null) {
