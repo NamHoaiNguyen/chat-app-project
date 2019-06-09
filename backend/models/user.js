@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        age: {
+           type: DataTypes.INTEGER
+        },
+        city: {
+           type: DataTypes.STRING
+        },
+        gender: {
+          type: DataTypes.ENUM("F", "M")
+        }
     },{schema: 'chatapp'});
 
     return User;

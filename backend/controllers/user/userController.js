@@ -21,8 +21,6 @@ module.exports = {
     });
   },
 
-
-
   update: (req,res) =>{
     db.User.findByPk(req.params.id).then(updateUser =>{
       if(updateUser){
@@ -32,6 +30,7 @@ module.exports = {
                phoneNumber: req.body.phoneNumber,
                gender : req.body.gender,
                age : req.body.age,
+               city : req.body.city
              },
              {where :{id : req.params.id}}
            ).then(newUpdate => {
@@ -94,4 +93,64 @@ module.exports = {
     });
   },
 
+  addContact : (req, res) =>{
+    db.User.findByPk(req.params.id).then(contact => {
+      if(contact){
+        db.ListContact.findOne({where : {
+          userId : req.userData.userId,
+          friendId : req.params.id
+        } }).then(added => {
+          if(added){
+            res.json({message : "You have added this person."});
+          }
+          else{
+            db.ListContact.create({
+              userId : req.userData.userId,
+              friendId : req.params.id
+            });
+
+            db.ListContact.create({
+              userId : req.params.id,
+              friendId : req.userData.userId
+            });
+            res.status(200).json({
+              message : "Added!!!"
+            });
+          }
+        });
+      }
+    else{
+      res.status(422).json({
+        message : "Auth failed"
+      });
+    }
+    });
+  },
+
+  getContact : (req, res) => {
+    db.User.findByPk(req.userData.userId).then(user =>{
+      if(user){
+        db.ListContact.findAll({
+          where : {userId : req.userData.userId}
+        }).then(listContact =>{
+           if(listContact.length){
+             db.User.findAll({
+               where: {
+                 id:  listContact.map(list => list.friendId) ,
+               },
+               order: [["createdAt", "ASC"]],
+             }).then(data => res.json(data.map(userData => ({ ...userData.get({ plain: true }) }))));
+           }else{
+             res.status(200).json({
+               message : "You dont have any friends!!!"
+             });
+           }
+        });
+      }else{
+        res.status(422).json({
+          message : "Don't have account"
+        });
+      }
+    });
+  }
 };

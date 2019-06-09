@@ -26,7 +26,15 @@ module.exports = {
         allowNull: false,
       	type: Sequelize.STRING
       },
-
+      age: {
+         type: Sequelize.INTEGER
+      },
+      city: {
+         type: Sequelize.STRING
+      },
+      gender: {
+        type: Sequelize.ENUM("F", "M")
+      }
     }, {schema: 'chatapp'})
   },
   down: (queryInterface, Sequelize) => {

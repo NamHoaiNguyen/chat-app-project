@@ -27,7 +27,7 @@ module.exports = {
         }).then(user => {
           if (user == null) {
             res.status(422).json({
-              message: "Auth failed"
+              message: "Not Register"
             });
             console.log("User does not exist!");
           } else {

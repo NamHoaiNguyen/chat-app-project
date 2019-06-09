@@ -11,5 +11,8 @@ router.put("/update/:id", authMiddleware , controller.update);
 
 router.put("/changepass/:id", authMiddleware , controller.change);
 
+router.put("/add/:id",authMiddleware, controller.addContact);
+
+router.get("/contact/:id", authMiddleware, controller.getContact);
 
 module.exports = router;

@@ -13,10 +13,10 @@ module.exports = {
         allowNull: false,
 
       },
-      listFriendId: {
+      friendId: {
         type: DataTypes.UUID,
         allowNull: false,
-      
+
       },
       createdAt: {
         allowNull: false,

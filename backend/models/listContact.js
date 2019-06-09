@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
 
     },
-    listFriendId: {
+    friendId: {
       type: DataTypes.UUID,
       allowNull: false,
-      
+
     }
   },{schema: 'chatapp'});
 
