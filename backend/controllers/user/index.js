@@ -15,4 +15,6 @@ router.put("/add/:id",authMiddleware, controller.addContact);
 
 router.get("/contact/:id", authMiddleware, controller.getContact);
 
+router.put("/delete/:id",authMiddleware, controller.deleteContact);
+
 module.exports = router;

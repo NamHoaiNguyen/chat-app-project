@@ -135,10 +135,10 @@ module.exports = {
   },
 
   getContact : (req, res) => {
-    db.User.findByPk(req.userData.userId).then(user =>{
+    db.User.findByPk(req.params.id).then(user =>{
       if(user){
         db.ListContact.findAll({
-          where : {userId : req.userData.userId}
+          where : {userId : req.params.id}
         }).then(listContact =>{
            if(listContact.length){
              db.User.findAll({
@@ -156,6 +156,51 @@ module.exports = {
       }else{
         res.status(422).json({
           message : "Don't have account"
+        });
+      }
+    });
+  },
+
+  deleteContact : (req, res) => {
+    db.User.findByPk(req.params.id).then(user => {
+      if(user){
+        db.User.findOne({
+          where : {email : req.body.email}
+        }).then(check => {
+          if(check){
+            db.ListContact.findOne({where :{
+              userId : req.req.params.id,
+              friendId : check.id
+            }  }).then(deleted => {
+              if(deleted){
+                db.ListContact.destroy({
+                  where :{
+                    userId : req.req.params.id,
+                    friendId : check.id
+                  }
+                });
+
+                db.ListContact.destroy({
+                  where :{
+                    userId : check.id,
+                    friendId : req.req.params.id
+                  }
+                });
+                res.status(200).json({
+                  message : "Deleted!!!"
+                });
+
+              }else{
+                res.json({message : "You haven't added this person"})
+              }
+            });
+          }else{
+            res.json({message : "Cant find this email"})
+          }
+        });
+      }else{
+        res.status(422).json({
+          message : "Auth failed"
         });
       }
     });
